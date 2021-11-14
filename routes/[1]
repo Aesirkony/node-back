@@ -1,0 +1,44 @@
+-*- mode: compilation; default-directory: "~/proyectos/node-rest/controllers/" -*-
+Compilation started at Fri Nov 12 21:33:53
+
+npm run start
+
+> node-rest@1.0.0 start /home/aesirkony/proyectos/node-rest
+> node app
+
+events.js:377
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (net.js:1331:16)
+    at listenInCluster (net.js:1379:12)
+    at Server.listen (net.js:1465:7)
+    at Function.listen (/home/aesirkony/proyectos/node-rest/node_modules/express/lib/application.js:618:24)
+    at Server.listen (/home/aesirkony/proyectos/node-rest/models/server.js:32:12)
+    at Object.<anonymous> (/home/aesirkony/proyectos/node-rest/app.js:5:8)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (net.js:1358:8)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! node-rest@1.0.0 start: `node app`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the node-rest@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/aesirkony/.npm/_logs/2021-11-13T02_33_53_840Z-debug.log
+
+Compilation exited abnormally with code 1 at Fri Nov 12 21:33:53
