@@ -8,7 +8,7 @@ const {actualizarProducto,
        crearProducto,
        obtenerProducto,
        obtenerProductos } = require('../controllers/productos');
-const { existeCategoriaPorId, existeProductoPorId } = require('../helpers/db-validators');
+const {existeProductoPorId } = require('../helpers/db-validators');
 
 const router = Router();
 
@@ -21,9 +21,7 @@ router.get('/:id', [
 ], obtenerProducto);
 
 router.post('/', [
-    check('nombre','El nombre es obligatorio').not().isEmpty(),
-    check('categoria','No es un id valido').isMongoId(),
-    check('categoria').custom( existeCategoriaPorId ),
+    check('codigo_producto','El codigo es obligatorio').not().isEmpty(),
     validarCampos
 ], crearProducto);
 

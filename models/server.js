@@ -8,9 +8,10 @@ class Server{
 		this.port = process.env.PORT;
 
       this.paths = {
+          auth: '/api/auth',
           usuarios: '/api/usuarios',
-          categorias: '/api/categorias',
           productos: '/api/productos',
+					clientes: '/api/clientes',
       };
 
 
@@ -25,14 +26,15 @@ class Server{
 	async conectarDB(){
 		await dbConnection();
 	}
-	routes(){
-		  this.app.use(this.paths.usuarios, require('../routes/user'));
-	    this.app.use(this.paths.categorias, require('../routes/categorias'));
+	  routes(){
+      this.app.use(this.paths.auth, require('../routes/auth'));
+      this.app.use(this.paths.usuarios, require('../routes/user'));
       this.app.use(this.paths.productos, require('../routes/productos'));
+			// this.app.use(this.paths.clientes, require('../routes/clientes'));
 
 	}
 	middlewares(){
-		this.app.use(express.json()); 
+		this.app.use(express.json());
 		this.app.use(cors());
 		this.app.use(express.static('public'));
 	}
@@ -44,4 +46,4 @@ class Server{
 	}
 }
 
-module.exports = Server; 
+module.exports = Server;

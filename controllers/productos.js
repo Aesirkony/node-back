@@ -9,8 +9,6 @@ const obtenerProductos = async(req, res) =>{
     const [ total, productos ] = await Promise.all([
         Producto.countDocuments(query),
         Producto.find(query)
-            .populate('usuario', 'nombre')
-            .populate('categoria', 'nombre')
             .skip(Number(desde)).
             limit(Number(limite))
     ]);
@@ -23,12 +21,9 @@ const obtenerProductos = async(req, res) =>{
 
 const obtenerProducto = async(req, res) => {
     const { id } = req.params;
-    const producto = await Producto.findById( id )
-          .populate('usuario', 'nombre')
-          .populate('categoria', 'nombre');
-
+    const producto = await Producto.findById( id );
     res.json( producto );
-}
+};
 
 const crearProducto = async(req, res) => {
     const {estado, usuario, ...body} = req.body;

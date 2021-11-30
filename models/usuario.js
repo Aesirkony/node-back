@@ -1,11 +1,6 @@
 const { Schema, model } = require('mongoose');
 
 const UsuarioSchema = Schema({
-	cedula:{
-		type: String,
-		required: [true, "La cedula es obligatoria"],
-		unique: true
-	},
 	nombre:{
 		type: String,
 		required: [true, 'El nombre es obligatorio']
