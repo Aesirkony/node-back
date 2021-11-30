@@ -7,7 +7,7 @@ const {actualizarCliente,
        borrarCliente,
        crearCliente,
        obtenerCliente,
-       obtenerClientes } = require('../controllers/productos');
+       obtenerClientes } = require('../controllers/clientes');
 const { existeClientePorId } = require('../helpers/db-validators');
 
 const router = Router();
@@ -21,7 +21,7 @@ router.get('/:id', [
 ], obtenerCliente);
 
 router.post('/', [
-    check('nombre','El nombre es obligatorio').not().isEmpty(),
+    check('nombre_cliente','El nombre es obligatorio').not().isEmpty(),
     validarCampos
 ], crearCliente);
 

@@ -21,7 +21,7 @@ const obtenerClientes = async(req, res) =>{
 
 const obtenerCliente = async(req, res) => {
     const { id } = req.params;
-    const cliente = await Cliente.findById( id )
+    const cliente = await Cliente.findById( id );
 
     res.json( cliente );
 }
@@ -29,17 +29,17 @@ const obtenerCliente = async(req, res) => {
 const crearCliente = async(req, res) => {
     const {estado, usuario, ...body} = req.body;
 
-    const clienteDB = await Cliente.findOne({nombre: body.nombre});
+    const clienteDB = await Cliente.findOne({nombre_cliente: body.nombre_cliente});
 
     if(clienteDB){
         return res.status(400).json({
-            msg: ` El cliente ${ clienteDB.nombre }, ya existe `
+            msg: ` El cliente ${ clienteDB.nombre_cliente }, ya existe `
         });
     }
 
     const data = {
         ...body,
-        nombre: body.nombre.toUpperCase(),
+        nombre: body.nombre_cliente.toUpperCase(),
         usuario: "618df55b6e3ac19ff731a479",
     };
 

@@ -7,7 +7,7 @@ const {actualizarVenta,
        borrarVenta,
        crearVenta,
        obtenerVenta,
-       obtenerVentas } = require('../controllers/productos');
+       obtenerVentas } = require('../controllers/ventas');
 const { existeVentaPorId } = require('../helpers/db-validators');
 
 const router = Router();
@@ -21,8 +21,7 @@ router.get('/:id', [
 ], obtenerVenta);
 
 router.post('/', [
-    check('nombre','El nombre es obligatorio').not().isEmpty(),
-    check('categoria','No es un id valido').isMongoId(),
+    check('codigo_venta','El codigo es obligatorio').not().isEmpty(),
     validarCampos
 ], crearVenta);
 

@@ -21,26 +21,25 @@ const obtenerVentas = async(req, res) =>{
 
 const obtenerVenta = async(req, res) => {
     const { id } = req.params;
-    const venta = await Venta.findById( id )
+    const venta = await Venta.findById( id );
 
     res.json( venta );
 }
 
 const crearVenta = async(req, res) => {
-    const {estado, usuario, ...body} = req.body;
+    const { ...body} = req.body;
 
-    const ventaDB = await Venta.findOne({nombre: body.nombre});
+    const ventaDB = await Venta.findOne({codigo_venta: body.codigo_venta});
 
     if(ventaDB){
         return res.status(400).json({
-            msg: ` El venta ${ ventaDB.nombre }, ya existe `
+            msg: ` El codigo venta ${ ventaDB.codigo_venta }, ya existe `
         });
     }
 
     const data = {
         ...body,
-        nombre: body.nombre.toUpperCase(),
-        usuario: "618df55b6e3ac19ff731a479",
+        cedula_cliente: "618df55b6e3ac19ff731a479",
     };
 
     const venta = new Venta( data );
