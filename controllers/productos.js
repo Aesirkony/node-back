@@ -28,17 +28,17 @@ const obtenerProducto = async(req, res) => {
 const crearProducto = async(req, res) => {
     const {estado, usuario, ...body} = req.body;
 
-    const productoDB = await Producto.findOne({nombre: body.nombre});
+    const productoDB = await Producto.findOne({nombre_producto: body.nombre_producto});
 
     if(productoDB){
         return res.status(400).json({
-            msg: ` El producto ${ productoDB.nombre }, ya existe `
+            msg: ` El producto ${ productoDB.nombre_producto }, ya existe `
         });
     }
 
     const data = {
         ...body,
-        nombre: body.nombre.toUpperCase(),
+        nombre: body.nombre_producto.toUpperCase(),
         usuario: "618df55b6e3ac19ff731a479",
     };
 

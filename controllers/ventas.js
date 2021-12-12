@@ -3,14 +3,12 @@ const { Venta } = require('../models');
 
 const obtenerVentas = async(req, res) =>{
 
-    const {limite = 5, desde = 0 } = req.query;
     const query = { estado: true };
 
     const [ total, ventas ] = await Promise.all([
         Venta.countDocuments(query),
         Venta.find(query)
-            .skip(Number(desde)).
-            limit(Number(limite))
+           
     ]);
 
     res.json({
@@ -27,19 +25,19 @@ const obtenerVenta = async(req, res) => {
 }
 
 const crearVenta = async(req, res) => {
-    const { ...body} = req.body;
+    const {codigo_venta, ...body} = req.body;
+    let timestamp = +new Date();
+    // const ventaDB = await Venta.findOne({codigo_venta: body.codigo_venta});
 
-    const ventaDB = await Venta.findOne({codigo_venta: body.codigo_venta});
-
-    if(ventaDB){
-        return res.status(400).json({
-            msg: ` El codigo venta ${ ventaDB.codigo_venta }, ya existe `
-        });
-    }
+    // if(ventaDB){
+    //     return res.status(400).json({
+    //         msg: ` El codigo venta ${ ventaDB.codigo_venta }, ya existe `
+    //     });
+    // }
 
     const data = {
         ...body,
-        cedula_cliente: "618df55b6e3ac19ff731a479",
+        codigo_venta: timestamp
     };
 
     const venta = new Venta( data );
@@ -56,7 +54,6 @@ const actualizarVenta = async(req, res) =>{
     if(data.nombre){
         data.nombre = data.nombre.toUpperCase();
     }
-       data.usuario = "618df55b6e3ac19ff731a479";
 
     const  venta = await Venta.findByIdAndUpdate(id, data, {new : true});
 
@@ -70,10 +67,17 @@ const borrarVenta = async (req, res) => {
     res.json( ventaBorrado );
 };
 
+const totalVentas =(res) => {
+    const total = Venta.find();
+
+    res.json(total);
+};
+
 module.exports = {
     actualizarVenta,
     borrarVenta,
     crearVenta,
     obtenerVentas,
-    obtenerVenta
+    obtenerVenta,
+    totalVentas
 };

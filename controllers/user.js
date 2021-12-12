@@ -3,7 +3,6 @@ const Usuario = require('../models/usuario');
 
 
 const userGet = async(req, res) =>{
-    const { limite = 5, desde = 0} = req.query;
     const query = { estado: true };
     // const usuarios = await Usuario.find(query)
     //       .limit(Number(limite)).skip(Number(desde));
@@ -13,8 +12,6 @@ const userGet = async(req, res) =>{
     const [total, usuarios] = await Promise.all([
         Usuario.countDocuments(query),
         Usuario.find(query)
-            .limit(Number(limite))
-            .skip(Number(desde))
 
     ]);
 	  res.json({
@@ -26,23 +23,22 @@ const userGet = async(req, res) =>{
 const userPost = async(req, res) =>{
 
 
-	const { cedula, nombre, correo, contrasena, rol} = req.body;
-	const usuario = new Usuario({cedula, nombre, correo, contrasena, rol});
-
+	  const { cedula, nombre, correo, contrasena, usuario, rol} = req.body;
+	  const usuarioData = new Usuario({cedula, nombre, correo,contrasena, usuario, rol});
+    console.log(req.body);
 	//Encriptacion de contraseña
-	  const salt = bcryptjs.genSaltSync();
-	  usuario.contrasena = bcryptjs.hashSync(contrasena, salt);
+	    const salt = await bcryptjs.genSaltSync();
+	    usuarioData.contrasena = await bcryptjs.hashSync(contrasena, salt);
 
-	  await usuario.save();
+	   await usuarioData.save();
 	  res.json({
-        msg:'hellow world - controlador',
-				usuario	
+				usuarioData,	
     });
 };
 
 const userPut = async(req, res) =>{
     const { id } = req.params;
-    const {_id, cedula, contrasena, correo, ...resto } = req.body;
+    const {_id, cedula, contrasena, ...resto } = req.body;
 
     // validar contra bd
     if( contrasena ){

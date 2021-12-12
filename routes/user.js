@@ -18,9 +18,10 @@ router.put('/:id',[
 router.post('/', [
     check('cedula', 'La cedula no es valida').not().isEmpty(),
 	  check('correo', 'El correo no es válido').isEmail(),
+    check('usuario', 'El usuario es obligatorio').not().isEmpty(),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('contrasena', 'La contraseña debe ser minimo de 6 caracteres').isLength({ min: 6 }),
-    check('rol').custom(esRoleValido),
+    check('contrasena', 'La contraseña debe ser minimo de 4 caracteres').isLength({ min: 4 }),
+    //check('rol').custom(esRoleValido),
     //check('rol', 'No es un rol valido').isIn(['ADMIN_ROLE', 'USER_ROLE']),
     check('correo').custom(emailExiste),
     validarCampos

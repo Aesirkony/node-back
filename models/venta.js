@@ -2,14 +2,18 @@ const {Schema, model} = require('mongoose');
 
 const VentaSchema = Schema({
   cedula_cliente: {
-    type: Schema.Types.ObjectId,
+    type: Number,
      ref: 'Cliente'
   },
   codigo_venta: {
       type: Number,
   },
   detalle_venta: {
-      type: Number,
+      cantidad_producto: Number,
+      codigo_producto: Number,
+      valor_total: Number,
+      valor_venta: Number,
+      valorIva: Number
   },
   ivaventa: {
       type: String

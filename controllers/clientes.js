@@ -26,6 +26,15 @@ const obtenerCliente = async(req, res) => {
     res.json( cliente );
 }
 
+const obtenerClientePorCedula = async(req, res) => {
+    const { cedula } = req.params;
+    const cliente = await Cliente.find({cedula_cliente:cedula});
+
+    res.json( cliente );
+}
+
+
+
 const crearCliente = async(req, res) => {
     const {estado, usuario, ...body} = req.body;
 
@@ -76,5 +85,6 @@ module.exports = {
     borrarCliente,
     crearCliente,
     obtenerClientes,
-    obtenerCliente
+    obtenerCliente,
+    obtenerClientePorCedula
 };

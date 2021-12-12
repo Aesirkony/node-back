@@ -4,30 +4,30 @@ const { generarJWT } = require('../helpers/generar-jwt');
 
 const login = async(req, res) => {
     
-    const {nombre, contrasena } = req.body;
+    const {usuario, contrasena } = req.body;
 
 
     try{
 
-        const usuario = await Usuario.findOne({nombre});
-        console.log(typeof usuario);
-        if( nombre === undefined){
+        const user = await Usuario.findOne({usuario});
+
+        if( usuario === undefined){
             return res.status(400).json({
                 msg: 'Error login - estado',
             });
         }
 
-        const validPassword = bcryptjs.compareSync(contrasena, usuario.contrasena);
+        const validPassword = bcryptjs.compareSync(contrasena, user.contrasena);
         if( !validPassword ){
             return res.status(400).json({
                 msg: 'Error login - contraseña',
             });
         }
 
-        const token = await generarJWT(usuario.id);
+        const token = await generarJWT(user.id);
 
         res.json({
-            nombre,
+            user,
             token
         });
 

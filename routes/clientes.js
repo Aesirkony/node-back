@@ -7,12 +7,19 @@ const {actualizarCliente,
        borrarCliente,
        crearCliente,
        obtenerCliente,
+       obtenerClientePorCedula,
        obtenerClientes } = require('../controllers/clientes');
 const { existeClientePorId } = require('../helpers/db-validators');
 
 const router = Router();
 
 router.get('/', obtenerClientes);
+
+router.get('/cedula/:cedula', [
+    check('cedula', 'agrege la cedula a buscar').not().isEmpty(),
+    validarCampos
+], obtenerClientePorCedula);
+
 
 router.get('/:id', [
     check('id', 'No es un id valido!').isMongoId(),

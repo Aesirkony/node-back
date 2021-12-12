@@ -8,7 +8,6 @@ const { login } = require('../controllers/auth');
 const router = Router();
 
 router.post('/login',[
-    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('contrasena', 'La contraseña es obligatoria').not().isEmpty(),
     validarCampos
 ], login);

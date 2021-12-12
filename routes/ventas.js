@@ -7,7 +7,8 @@ const {actualizarVenta,
        borrarVenta,
        crearVenta,
        obtenerVenta,
-       obtenerVentas } = require('../controllers/ventas');
+       obtenerVentas,
+      totalVentas} = require('../controllers/ventas');
 const { existeVentaPorId } = require('../helpers/db-validators');
 
 const router = Router();
@@ -19,6 +20,9 @@ router.get('/:id', [
     check('id').custom( existeVentaPorId ),
     validarCampos
 ], obtenerVenta);
+
+router.get('/total/', totalVentas);
+
 
 router.post('/', [
     check('codigo_venta','El codigo es obligatorio').not().isEmpty(),
